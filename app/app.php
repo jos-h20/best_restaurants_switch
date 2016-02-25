@@ -76,7 +76,7 @@
         $restaurant = Restaurant::find($id);
         $restaurant->update($name);
         var_dump($restaurant);
-        return $app['twig']->render('total.html.twig', array('restaurants' => $restaurant));
+        return $app['twig']->render('restaurant.html.twig', array('restaurants' => $restaurant));
     });
     /*delete restaurant by id*/
     $app->delete("/restaurants/{id}", function($id) use ($app) {
