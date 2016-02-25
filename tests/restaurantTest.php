@@ -102,6 +102,28 @@
            $this->assertEquals([$new_restaurant, $new_restaurant2], $result);
        }
 
+       function test_delete_all()
+       {
+           $type = "Chinese";
+           $id = null;
+           $new_cuisine = new Cuisine($type, $id);
+           $new_cuisine->save();
+
+           $name = "Wangs Grill";
+           $cuisine_id = $new_cuisine->getId();
+           $new_restaurant = new Restaurant($name, $cuisine_id, $id);
+           $new_restaurant->save();
+
+           $name2 = "Noodle House";
+           $new_restaurant2 = new Restaurant($name2, $cuisine_id, $id);
+           $new_restaurant2->save();
+
+           Restaurant::deleteAll();
+
+           $result = Restaurant::getAll();
+           $this->assertEquals([], $result);
+       }
+
    }
 
 ?>
