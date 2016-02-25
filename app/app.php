@@ -15,6 +15,9 @@
        'twig.path' => __DIR__.'/../views'
     ));
 
+    use Symfony\Component\HttpFoundation\Request;
+    Request::enableHttpMethodParameterOverride();
+
     $app->get('/', function() use ($app) {
         return $app['twig']->render('index.html.twig', array('cuisines' => Cuisine::getAll()));
     });
