@@ -75,14 +75,13 @@
         $name = $_POST['name'];
         $restaurant = Restaurant::find($id);
         $restaurant->update($name);
-        var_dump($restaurant);
         return $app['twig']->render('restaurant.html.twig', array('restaurants' => $restaurant));
     });
     /*delete restaurant by id*/
     $app->delete("/restaurants/{id}", function($id) use ($app) {
         $restaurant = Restaurant::find($id);
         $restaurant->delete();
-        return $app['twig']->render('total.html.twig', array('restaurant' => Restaurant::getAll()));
+        return $app['twig']->render('index.html.twig', array('cuisines' => Cuisine::getAll()));
     });
     /*****END OF SINGLE RESTAURANT PAGE*****/
     /*****TOTAL*****/
