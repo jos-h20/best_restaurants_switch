@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">        <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="/css/bootstrap-theme.min.css" type="text/css">
+        <link rel="stylesheet" href="/css/styles.css" type="text/css">
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <body>
+        <h1>Total Restaurants and Cuisines</h1>
+        {% for cuisine in cuisines %}
+        <h1>{{ cuisine.getType }}</h1>
+            {% for restaurant in restaurants %}
+            <ul>
+            {% if cuisine.getId == restaurant.getCuisineId %}
+                <li>{{ restaurant.getName }}</li>
+            {% endif %}
+            </ul>
+            {% endfor %}
+
+        {% endfor %}
+
+
+        <p><a href='/'>Home</a></p>
+    </body>
+</html>

@@ -67,11 +67,31 @@
     /*****SINGLE RESTAURANT PAGE*****/
     $app->get("/restaurant/{id}", function($id) use($app) {
         $restaurant = Restaurant::find($id);
-        var_dump($restaurant);
         return $app['twig']->render('restaurant.html.twig', array('restaurants' => $restaurant));
+    });
+
+    /*edit restaurant by id*/
+    $app->patch("/restaurants/{id}", function($id) use ($app) {
+        $name = $_POST['name'];
+        $restaurant = Restaurant::find($id);
+        $restaurant->update($name);
+        var_dump($restaurant);
+        return $app['twig']->render('total.html.twig', array('restaurants' => $restaurant));
+    });
+    /*delete restaurant by id*/
+    $app->delete("/restaurants/{id}", function($id) use ($app) {
+        $restaurant = Restaurant::find($id);
+        $restaurant->delete();
+        return $app['twig']->render('total.html.twig', array('restaurant' => Restaurant::getAll()));
     });
     /*****END OF SINGLE RESTAURANT PAGE*****/
     /*****TOTAL*****/
+    /*display all*/
+    $app->get("/total", function() use ($app){
+        $cuisine = Cuisine::getAll();
+        $restaurants = Restaurant::getAll();
+        return $app['twig']->render('total.html.twig', array('cuisines'=> $cuisine, 'restaurants' => $restaurants));
+    });
 
     /*****END OF TOTAL*****/
 
