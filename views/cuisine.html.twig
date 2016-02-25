@@ -23,24 +23,24 @@
        <input id="name" name="name" type="text">
        <button type="submit">Add Restaurant</button>
    </form>
-<p><a href="/cuisines/{{ cuisine.getId }}">Edit this cuisine</a></p>
+<!-- <p><a href="/cuisines/{{ cuisine.getId }}">Edit this cuisine</a></p> -->
 
 <h1>Update the {{ cuisine.getName }} cuisine </h1>
 
-<!-- <form action="/cuisines/{{ cuisine.getId }}" method="post">
+<form action="/cuisines/{{ cuisine.getId }}" method="post">
   <input name="_method" type="hidden" value="patch">
 
   <label for="type">Rename your cuisine:</label>
   <input id="type" name="type" type="text">
 
   <button type="submit">Update</button>
-</form> -->
+</form>
 <form action="/cuisines/{{ cuisine.getId }}" method="post">
   <input name="_method" type="hidden" value="delete">
 
   <button type="submit">Delete this cuisine</button>
 </form>
-<p><a href='/'>Home</a></p>
+
 <button><a href="/">Home</a></button>
 
    <!-- <form action='/delete_categories' method='post'>
