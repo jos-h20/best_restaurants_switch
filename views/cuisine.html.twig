@@ -10,7 +10,7 @@
         <p>See restaurants and their cuisines below:</p>
         <ul>
             {% for restaurant in restaurants %}
-                <li>{{ restaurant.getName }}</li>
+                <li><a href="/restaurant/{{ restaurant.getId }}">{{ restaurant.getName }}</a></li> <!-- get id to restaurant -->
             {% endfor %}
         </ul>
    {% else %}
