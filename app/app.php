@@ -121,7 +121,7 @@
     $app->delete("/reviews/{id}", function($id) use ($app) {
         $review = Review::find($id);
         $review->delete();
-        return $app['twig']->render('total.html.twig', array('restaurants' => Restaurant::getAll()));
+        return $app['twig']->render('total_reviews.html.twig', array('reviews' => Review::getAll(),'restaurants' => Restaurant::getAll()));
     });
 
     /*****END OF Review*****/

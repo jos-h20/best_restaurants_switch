@@ -6,8 +6,10 @@
 <body>
     <div class="container">
         <div class="jumbotron">
-            <h1>{{ restaurant.getName }}</h1>
             <h2>Let's review</h2>
+            <h1>{{ restaurant.getName }}</h1>
+            <h3><em>Type in a number between 1 and 10</em></h3>
+
         </div>
         <h4>Current Reviews</h4>
         {% for review in reviews %}
@@ -15,11 +17,11 @@
         {% endfor %}
         <div class="row">
             <div class="col-sm-6">
-                <h1>Write a review: </h1>
+                <h1>Rate {{ restaurant.getName }} on a scale of 1-10.</h1>
 
                 <form action="/review" method="post">
                     <input id="restaurant_id" type="hidden" name="restaurant_id" value="{{ restaurant.getId() }}">
-                    <label for="rating">Review:</label>
+                    <label for="rating">Rating:</label>
                     <input id="rating" name="rating" type="text">
                     <button type="submit">Add Review</button>
                 </form>
