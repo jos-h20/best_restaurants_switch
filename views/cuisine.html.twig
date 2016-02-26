@@ -4,44 +4,57 @@
     <title>All The Best Restaurants</title>
 </head>
 <body>
-    <h1>{{ cuisine.getType() }}</h1>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>{{ cuisine.getType() }}</h1>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                {% if restaurants is not empty %}
+                    <p>See restaurants and their cuisines below:</p>
+                    <ul>
+                        {% for restaurant in restaurants %}
+                            <li><a href="/restaurant/{{ restaurant.getId }}">{{ restaurant.getName }}</a></li> <!-- get id to restaurant -->
+                        {% endfor %}
+                    </ul>
+               {% else %}
+                 <p>There are no restaurants yet! Add a restaurant below.</p>
+               {% endif %}
 
-    {% if restaurants is not empty %}
-        <p>See restaurants and their cuisines below:</p>
-        <ul>
-            {% for restaurant in restaurants %}
-                <li><a href="/restaurant/{{ restaurant.getId }}">{{ restaurant.getName }}</a></li> <!-- get id to restaurant -->
-            {% endfor %}
-        </ul>
-   {% else %}
-     <p>There are no restaurants yet! Add a restaurant below.</p>
-   {% endif %}
+               <form action="/restaurant" method="post">
+                   <input id="cuisine_id" type="hidden" name="cuisine_id" value="{{ cuisine.getId() }}">
+                   <label for="name">Restaurant Name:</label>
+                   <input id="name" name="name" type="text">
+                   <button type="submit">Add Restaurant</button>
+               </form>            </div>
+            <div class="col-sm-6">
+                <h1>Update the {{ cuisine.getName }} cuisine </h1>
 
-   <form action="/restaurant" method="post">
-       <input id="cuisine_id" type="hidden" name="cuisine_id" value="{{ cuisine.getId() }}">
-       <label for="name">Restaurant Name:</label>
-       <input id="name" name="name" type="text">
-       <button type="submit">Add Restaurant</button>
-   </form>
+                <form action="/cuisines/{{ cuisine.getId }}" method="post">
+                  <input name="_method" type="hidden" value="patch">
+
+                  <label for="type">Rename your cuisine:</label>
+                  <input id="type" name="type" type="text">
+
+                  <button type="submit">Update</button>
+                </form>
+                <form action="/cuisines/{{ cuisine.getId }}" method="post">
+                  <input name="_method" type="hidden" value="delete">
+
+                  <button type="submit">Delete this cuisine</button>
+                </form>
+                <p><a href="/total">Click here</a> to see all of the restaurants and cuisines.</p>
+                <button><a href="/">Home</a></button>
+            </div>
+
+        </div>
+    </div>
+
+
+
 <!-- <p><a href="/cuisines/{{ cuisine.getId }}">Edit this cuisine</a></p> -->
 
-<h1>Update the {{ cuisine.getName }} cuisine </h1>
 
-<form action="/cuisines/{{ cuisine.getId }}" method="post">
-  <input name="_method" type="hidden" value="patch">
-
-  <label for="type">Rename your cuisine:</label>
-  <input id="type" name="type" type="text">
-
-  <button type="submit">Update</button>
-</form>
-<form action="/cuisines/{{ cuisine.getId }}" method="post">
-  <input name="_method" type="hidden" value="delete">
-
-  <button type="submit">Delete this cuisine</button>
-</form>
-<p><a href="/total">Click here</a> to see all of the restaurants and cuisines.</p>
-<button><a href="/">Home</a></button>
 
    <!-- <form action='/delete_categories' method='post'>
        <button type='submit'>Delete Category List</button>

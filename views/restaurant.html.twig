@@ -4,24 +4,38 @@
     <title>All The Best Restaurants</title>
 </head>
 <body>
-    <h1>{{ restaurants.getName }}</h1>
-    <h1>Update the {{ restaurants.getName }}'s name:' </h1>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>{{ restaurants.getName }}</h1>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>Update the {{ restaurants.getName }}'s name:' </h1>
 
-    <form action="/restaurants/{{ restaurants.getId }}" method="post">
-      <input name="_method" type="hidden" value="patch">
+                <form action="/restaurants/{{ restaurants.getId }}" method="post">
+                  <input name="_method" type="hidden" value="patch">
 
-      <label for="name">Rename your restaurant:</label>
-      <input id="name" name="name" type="text">
+                  <label for="name">Rename your restaurant:</label>
+                  <input id="name" name="name" type="text">
 
-      <button type="submit">Update</button>
-    </form>
-    <form action="/restaurants/{{ restaurants.getId }}" method="post">
-      <input name="_method" type="hidden" value="delete">
+                  <button type="submit">Update</button>
+                </form>
+                <form action="/restaurants/{{ restaurants.getId }}" method="post">
+                  <input name="_method" type="hidden" value="delete">
 
-      <button type="submit">Delete this restaurant</button>
-    </form>
-    <p><a href="/total">Click here</a> to see all of the restaurants and cuisines.</p>
-    <p><a href='/'>Home</a></p>
+                  <button type="submit">Delete this restaurant</button>
+                </form>            </div>
+            <div class="col-sm-6">
+                <p><a href="/total">Click here</a> to see all of the restaurants and cuisines.</p>
+                <p><a href='/'>Home</a></p>                
+            </div>
+
+        </div>
+
+    </div>
+
+
+
 
 
 </body>

@@ -4,30 +4,45 @@
     <title>All The Best Restaurants</title>
 </head>
 <body>
-    <h1>Best Restaurants</h1>
-    <h3>Search for restaurants by cuisine or enter a new restaurant</p>
+    <div class="container">
 
 
-    <form action="/cuisine" method="post">
-        <label for="type">Cuisine Type:</label>
-        <input id="type" name="type" type="text">
-        <button type="submit">Add Cuisine</button>
-    </form>
+    <div class="jumbotron">
+        <h1>Best Restaurants</h1>
+        <h3><em>Search for restaurants by cuisine or enter a new restaurant</em></p>
+    </div>
 
-    {% if cuisines is not empty %}
-        <p>See restaurants and their cuisines below:</p>
-        <ul>
-            {% for cuisine in cuisines %}
-                <li><a href="/cuisines/{{ cuisine.getId }}">{{ cuisine.getType }}</a></li>
-            {% endfor %}
-        </ul>
-   {% else %}
-     <p>There are no cuisines yet!</p>
-   {% endif %}
-   <p><a href="/total">Click here</a> to see all of the restaurants and cuisines.</p>
-   <form action='/delete_cuisines' method='post'>
-       <button class='btn btn-danger' type='submit'>Button of Death</button>
-   </form>
+    <div class="row">
+        <div class="col-sm-6">
+            <form action="/cuisine" method="post">
+                <label for="type">Cuisine Type:</label>
+                <input id="type" name="type" type="text">
+                <button type="submit">Add Cuisine</button>
+            </form>
+
+            {% if cuisines is not empty %}
+                <p>See restaurants and their cuisines below:</p>
+                <ul>
+                    {% for cuisine in cuisines %}
+                        <li><a href="/cuisines/{{ cuisine.getId }}">{{ cuisine.getType }}</a></li>
+                    {% endfor %}
+                </ul>
+           {% else %}
+             <p>There are no cuisines yet!</p>
+           {% endif %}
+        </div>
+        <div class="col-sm-6">
+            <p><a href="/total">Click here</a> to see all of the restaurants and cuisines.</p>
+            <p><a href="/total_reviews">Click here</a> to see all of the reviews.</p>            
+            <form action='/delete_cuisines' method='post'>
+                <button class='btn btn-danger' type='submit'>Button of Death</button>
+            </form>
+        </div>
+
+    </div>
+
+    </div>
+
 
 </body>
 </html>

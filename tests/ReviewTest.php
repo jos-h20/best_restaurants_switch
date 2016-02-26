@@ -13,53 +13,55 @@
    $password = 'root';
    $DB = new PDO($server, $username, $password);
 
-   class RestaurantTest extends PHPUnit_Framework_TestCase
+   class ReviewTest extends PHPUnit_Framework_TestCase
    {
        protected function tearDown()
        {
            Cuisine::deleteAll();
            Restaurant::deleteAll();
+           Review::deleteAll();
        }
 
-       function test_getName()
+       function test_getRating()
        {
-           $name = "Wangs Grill";
-           $cuisine_id = "Chinese";
+           $rating = "Wangs Grill";
+           $restaurant_id = "Chinese";
            $id = null;
-           $test_restaurant = New Restaurant($name, $cuisine_id, $id);
+           $test_review = New Review($rating, $restaurant_id, $id);
 
-           $result = $test_restaurant->getName();
+           $result = $test_review->getRating();
 
-           $this->assertEquals($name, $result);
+           $this->assertEquals($rating, $result);
        }
 
        function test_getId()
        {
-           $name = "Wang's Grill";
-           $cuisine_id = "Chinese";
+           $rating = "Wang's Grill";
+           $restaurant_id = "Chinese";
            $id = 1;
-           $test_restaurant = new Restaurant($name, $cuisine_id, $id);
+           $test_review = new Review($rating, $restaurant_id, $id);
 
-           $result = $test_restaurant->getId();
+           $result = $test_review->getId();
 
            $this->assertEquals(true, is_numeric($result));
        }
 
        function test_save()
        {
-           $type = "Chinese";
+           $name = "Chinese";
            $id = null;
-           $new_cuisine = new Cuisine($type, $id);
-           $new_cuisine->save();
-
-           $name = "Wangs Grill";
-           $cuisine_id = $new_cuisine->getId();
+           $cuisine_id = 1;
            $new_restaurant = new Restaurant($name, $cuisine_id, $id);
            $new_restaurant->save();
 
-           $result = Restaurant::getAll();
+           $rating = "Wangs Grill";
+           $restaurant_id = $new_restaurant->getId();
+           $new_review = new Review($rating, $restaurant_id, $id);
+           $new_review->save();
 
-           $this->assertEquals([$new_restaurant], $result);
+           $result = Review::getAll();
+
+           $this->assertEquals([$new_review], $result);
 
        }
 
@@ -83,44 +85,46 @@
 
        function test_getAll()
        {
-           $type = "Chinese";
+           $name = "Chinese";
            $id = null;
-           $new_cuisine = new Cuisine($type, $id);
-           $new_cuisine->save();
-
-           $name = "Wangs Grill";
-           $cuisine_id = $new_cuisine->getId();
+           $cuisine_id = 1;
            $new_restaurant = new Restaurant($name, $cuisine_id, $id);
            $new_restaurant->save();
 
-           $name2 = "Noodle House";
-           $new_restaurant2 = new Restaurant($name2, $cuisine_id, $id);
-           $new_restaurant2->save();
+           $rating = "Wangs Grill";
+           $restaurant_id = $new_restaurant->getId();
+           $new_review = new Review($rating, $restaurant_id, $id);
+           $new_review->save();
 
-           $result = Restaurant::getAll();
+           $rating2 = "Noodle House";
+           $new_review2 = new Review($rating2, $restaurant_id, $id);
+           $new_review2->save();
 
-           $this->assertEquals([$new_restaurant, $new_restaurant2], $result);
+           $result = Review::getAll();
+
+           $this->assertEquals([$new_review, $new_review2], $result);
        }
 
        function test_delete_all()
        {
-           $type = "Chinese";
+           $name = "Chinese";
            $id = null;
-           $new_cuisine = new Cuisine($type, $id);
-           $new_cuisine->save();
-
-           $name = "Wangs Grill";
-           $cuisine_id = $new_cuisine->getId();
+           $cuisine_id = 1;
            $new_restaurant = new Restaurant($name, $cuisine_id, $id);
            $new_restaurant->save();
 
-           $name2 = "Noodle House";
-           $new_restaurant2 = new Restaurant($name2, $cuisine_id, $id);
-           $new_restaurant2->save();
+           $rating = "Wangs Grill";
+           $restaurant_id = $new_restaurant->getId();
+           $new_review = new Review($rating, $restaurant_id, $id);
+           $new_review->save();
 
-           Restaurant::deleteAll();
+           $rating2 = "Noodle House";
+           $new_review2 = new Review($rating2, $restaurant_id, $id);
+           $new_review2->save();
 
-           $result = Restaurant::getAll();
+           Review::deleteAll();
+
+           $result = Review::getAll();
            $this->assertEquals([], $result);
        }
 

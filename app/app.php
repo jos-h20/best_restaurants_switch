@@ -3,6 +3,7 @@
     require_once __DIR__."/../vendor/autoload.php";
     require_once __DIR__."/../src/Cuisine.php";
     require_once __DIR__."/../src/Restaurant.php";
+    require_once __DIR__."/../src/Review.php";
 
     $app = new Silex\Application();
 
@@ -93,6 +94,48 @@
     });
 
     /*****END OF TOTAL*****/
+    /*****Review*****/
+    $app->get("/review/{id}", function($id) use($app) {
+        $restaurant = Restaurant::find($id);
+        return $app['twig']->render('review.html.twig', array('restaurant' => $restaurant, 'reviews' => $restaurant->getReviews()));
+    });
+
+    /*add a restaurant in cuisines*/
+    $app->post("/review", function() use ($app) {
+        $rating = $_POST['rating'];
+        $restaurant_id = $_POST['restaurant_id'];
+        $review= new Review($rating, $restaurant_id);
+        $review->save();
+        $restaurant = Restaurant::find($restaurant_id);
+        return $app['twig']->render('review.html.twig', array('restaurant' => $restaurant, 'reviews' => $restaurant->getReviews()));
+    });
+
+    /*edit restaurant by id*/
+    $app->patch("/reviews/{id}", function($id) use ($app) {
+        $rating = $_POST['rating'];
+        $review = Review::find($id);
+        $review->update($rating);
+        return $app['twig']->render('total_reviews.html.twig', array('reviews' => Review::getAll(), 'restaurants' => Restaurant::getAll()));
+    });
+    /*delete restaurant by id*/
+    $app->delete("/reviews/{id}", function($id) use ($app) {
+        $review = Review::find($id);
+        $review->delete();
+        return $app['twig']->render('total.html.twig', array('restaurants' => Restaurant::getAll()));
+    });
+
+    /*****END OF Review*****/
+    /*****TOTALReviewS*****/
+    $app->get("/total_reviews", function() use ($app){
+        $restaurant = Restaurant::getAll();
+        $reviews = Review::getAll();
+        return $app['twig']->render('total_reviews.html.twig', array('restaurants'=> $restaurant, 'reviews' => $reviews));
+    });
+    $app->get("/reviews/{id}", function($id) use($app) {
+        $review = Review::find($id);
+        return $app['twig']->render('total.html.twig', array('reviews' => $review));
+    });
+    /*****END OF TOTALReviewS*****/
 
 
 

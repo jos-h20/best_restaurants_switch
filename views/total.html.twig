@@ -9,21 +9,51 @@
         <title></title>
     </head>
     <body>
-        <body>
-        <h1>Total Restaurants and Cuisines</h1>
-        {% for cuisine in cuisines %}
-        <h1>{{ cuisine.getType }}</h1>
-            {% for restaurant in restaurants %}
-            <ul>
-            {% if cuisine.getId == restaurant.getCuisineId %}
-                <li>{{ restaurant.getName }}</li>
-            {% endif %}
-            </ul>
-            {% endfor %}
+        <div class="container">
+            <div class="jumbotron">
+                <h1>All of the restaraunts and cuisines</h1>
+                <h2><em>Click on the restaurant to add a review</em></h2>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
 
-        {% endfor %}
+                    {% for cuisine in cuisines %}
+                    <h1>{{ cuisine.getType }}</h1>
+                        {% for restaurant in restaurants %}
+                        <ul>
+                        {% if cuisine.getId == restaurant.getCuisineId %}
+                            <li><a href="/review/{{ restaurant.getId }}">{{ restaurant.getName }}</a></li>
+                        {% endif %}
+                        </ul>
+                        {% endfor %}
+
+                    {% endfor %}
 
 
-        <p><a href='/'>Home</a></p>
+                    <h1><a href='/'>Home</a></h1>
+                </div>
+                <div class="col-sm-6">
+                    <h2>Current Review: {{ reviews.getRating }}</h2>
+                    <form action="/reviews/{{ reviews.getId }}" method="post">
+                      <input name="_method" type="hidden" value="patch">
+
+                      <label for="rating">Update your review:</label>
+                      <input id="rating" name="rating" type="text">
+
+                      <button type="submit">Update</button>
+                    </form>
+                    <form action="/reviews/{{ reviews.getId }}" method="post">
+                      <input name="_method" type="hidden" value="delete">
+
+                      <button type="submit">Delete this review</button>
+                    </form>
+                    <p><a href="/total_reviews">Click here</a> to see all of the restaurants and reviews.</p>
+                    <p><a href='/'>Home</a></p>
+                </div>
+
+            </div>
+
+        </div>
+
     </body>
 </html>

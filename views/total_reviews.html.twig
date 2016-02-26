@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">        <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="/css/bootstrap-theme.min.css" type="text/css">
+        <link rel="stylesheet" href="/css/styles.css" type="text/css">
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h1>All of the reviews</h1>
+                <h2>Click on a review to update.</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+
+                    {% for restaurant in restaurants %}
+                    <h1>{{ restaurant.getName }}</h1>
+                        {% for review in reviews %}
+                        <ul>
+                        {% if restaurant.getId == review.getRestaurantId %}
+                            <li><a href="/reviews/{{ review.getId }}">{{ review.getRating }}</a></li>
+                        {% endif %}
+                        </ul>
+                        {% endfor %}
+
+                    {% endfor %}
+
+
+                    <h1><a href='/'>Home</a></h1>
+                </div>
+                <div class="col-sm-6">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>
